@@ -18,7 +18,7 @@
 
 // Tamanho de cada bloco da matriz do jogo na tela
 #define TAM 0.1f
-//Funções que convertem a linha e coluna da matriz em uma coordenada de [-1,1]
+//FunÃ§Ãµes que convertem a linha e coluna da matriz em uma coordenada de [-1,1]
 #define MAT2X(j) ((j)*0.1f-0.4)
 #define MAT2Y(i) (0.4-(i)*0.1f)
 
@@ -70,7 +70,7 @@ static void desenhaSprite(float coluna,float linha, GLuint tex);
 static GLuint carregaArqTextura(char *str);
 static void desenhaTipoTela(float x, float y, float tamanho, GLuint tex);
 
-// Função que carrega todas as texturas do jogo
+// FunÃ§Ã£o que carrega todas as texturas do jogo
 void carregaTexturas(){
     int i;
     char str[50];
@@ -94,7 +94,7 @@ void carregaTexturas(){
 
 }
 
-// Função que carrega um arquivo de textura do jogo
+// FunÃ§Ã£o que carrega um arquivo de textura do jogo
 static GLuint carregaArqTextura(char *str){
     // http://www.lonesock.net/soil.html
     GLuint tex = SOIL_load_OGL_texture
@@ -114,7 +114,7 @@ static GLuint carregaArqTextura(char *str){
     return tex;
 }
 
-// Função que recebe uma linha e coluna da matriz e um código
+// FunÃ§Ã£o que recebe uma linha e coluna da matriz e um cÃ³digo
 // de textura e desenha um quadrado na tela com essa textura
 void desenhaSprite(float coluna,float linha, GLuint tex){
     glColor3f(1.0, 1.0, 1.0);
@@ -176,7 +176,7 @@ static int cenario_EhCruzamento(int x, int y, Cenario* cen);
 static int cenario_VerificaDirecao(int mat[L][C], int y, int x, int direcao);
 static void cenario_constroiGrafo(Cenario* cen);
 
-// Função que carrega o cenário
+// FunÃ§Ã£o que carrega o cenÃ¡rio
 Cenario* cenario_carrega(){
     int i,j;
 
@@ -196,7 +196,7 @@ Cenario* cenario_carrega(){
     return cen;
 }
 
-// Libera os dados associados ao cenário
+// Libera os dados associados ao cenÃ¡rio
 void cenario_destroy(Cenario* cen){
     free(cen->grafo);
     free(cen);
@@ -255,11 +255,11 @@ void desce_bloco(Cenario *cen){
         }
 }
 
-// Função que verifica se é possivel andar em uma determinada direção
+// FunÃ§Ã£o que verifica se Ã© possivel andar em uma determinada direÃ§Ã£o
 static int cenario_VerificaDirecao(int mat[L][C], int y, int x, int direcao){
     int xt = x;
     int yt = y;
-    while(mat[yt + direcoes[direcao].y][xt + direcoes[direcao].x] == 0){ //não é parede...
+    while(mat[yt + direcoes[direcao].y][xt + direcoes[direcao].x] == 0){ //nÃ£o Ã© parede...
         yt = yt + direcoes[direcao].y;
         xt = xt + direcoes[direcao].x;
     }
@@ -279,7 +279,7 @@ static void pacman_morre(Pacman *pac);
 static void pacman_pontos_fantasma(Pacman *pac);
 static void pacman_AnimacaoMorte(float coluna,float linha,Pacman* pac);
 
-// Função que inicializa os dados associados ao pacman
+// FunÃ§Ã£o que inicializa os dados associados ao pacman
 Pacman* pacman_create(int x, int y){
     Pacman* pac = malloc(sizeof(Pacman));
     if(pac != NULL){
@@ -297,18 +297,18 @@ Pacman* pacman_create(int x, int y){
     return pac;
 }
 
-// Função que libera os dados associados ao pacman
+// FunÃ§Ã£o que libera os dados associados ao pacman
 void pacman_destroy(Pacman *pac){
     free(pac);
 }
 
-// Função que verifica se o pacman está vivo ou não
+// FunÃ§Ã£o que verifica se o pacman estÃ¡ vivo ou nÃ£o
 int pacman_vivo(Pacman *pac){
     if(pac->vivo)
         return 1;
 }
 
-// Função que verifica se o pacman pode ir para uma nova direção escolhida
+// FunÃ§Ã£o que verifica se o pacman pode ir para uma nova direÃ§Ã£o escolhida
 void pacman_AlteraDirecao(Pacman *pac, int direcao, Cenario *cen){
     if(direcao == 1 && pac->y < 12){
         pac->y++;
@@ -331,13 +331,13 @@ void pacman_AlteraDirecao(Pacman *pac, int direcao, Cenario *cen){
     }
 
 
-// Atualiza a posição do pacman
+// Atualiza a posiÃ§Ã£o do pacman
 void pacman_movimenta(Pacman *pac, Cenario *cen){
     if(pac->vivo == 0)
         return;
 
-    // Incrementa a sua posição dentro de uma célula da matriz ou muda de célula
-    if(cen->mapa[pac->y + direcoes[pac->direcao].y][pac->x + direcoes[pac->direcao].x] <= 4){ //&& cen->mapa[pac->y + direcoes[pac->direcao].y][pac->x + direcoes[pac->direcao].x] >=0){//não é parede...
+    // Incrementa a sua posiÃ§Ã£o dentro de uma cÃ©lula da matriz ou muda de cÃ©lula
+    if(cen->mapa[pac->y + direcoes[pac->direcao].y][pac->x + direcoes[pac->direcao].x] <= 4){ //&& cen->mapa[pac->y + direcoes[pac->direcao].y][pac->x + direcoes[pac->direcao].x] >=0){//nÃ£o Ã© parede...
         if(pac->direcao < 2){
             if(pac->parcial >= bloco){
                 pac->x += direcoes[pac->direcao].x;
@@ -363,11 +363,11 @@ void grade_work(Pacman *pac, int direcao, Cenario *cen){
     }
 }
 
-// Função que desenha o pacman
+// FunÃ§Ã£o que desenha o pacman
 void pacman_desenha(Pacman *pac){
     float linha, coluna;
     float passo = (pac->parcial/(float)bloco);
-    //Verifica a posição
+    //Verifica a posiÃ§Ã£o
     if(pac->direcao == 0 || pac->direcao == 2){
         linha = pac->y;
         coluna = pac->x + passo;
